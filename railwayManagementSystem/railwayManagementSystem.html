@@ -1,0 +1,83 @@
+<template>
+    <lightning-card title="Railway Management System">
+            <template if:false={loginForm}>
+                <lightning-input type="Gmail" label="User Name" onchange={handleOnUserName} placeholder="Enter User Name" required="true"></lightning-input>
+                <lightning-input  label="Password" onchange={handleOnPassword} placeholder="Enter Password" 
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    required="true"
+                    onfocus={handleFocus}
+                    onblur={handleBlur}
+                ></lightning-input>           
+                <lightning-button variant="Brand" label="Login" onclick={handleOnLoginForm}></lightning-button>
+                <lightning-button variant="Brand" label="Register" onclick={handleOnRegister}></lightning-button>
+            </template>
+            <template if:true={loginForm}>
+                <template if:true={name}>
+                    <h1>Enter Full Name:</h1>
+                 <lightning-input type="Text" label="Name" onchange={handleOnName} placeholder="Enter Name" required="true"></lightning-input>
+                 <lightning-button label="Next" variant="Brand" onclick={handleAfterName}></lightning-button>
+                </template>
+                <template if:true={contact}>
+                    <h1>Contact Information:</h1>
+                        <div class="slds-var-p-around_medium">
+                            <div class="slds-is-relative">
+                                <lightning-icon size="x-small" icon-name="utility:email" alternative-text="Email" title="Email" class="input-icon icon-right"></lightning-icon>
+                                <lightning-input type="Email" label="Email" onchange={handleOnEmail} placeholder="Enter Email" required="true"></lightning-input>
+                            </div>
+                        </div>                
+                        <lightning-input type="Phone" label="Phone Number" onchange={handleOnPhoneNumber} placeholder="Enter Phone Number" required="true"></lightning-input>
+                        <lightning-button label="Previous" variant="Brand" onclick={handleForNameTab} ></lightning-button>
+                        <lightning-button label="Next" variant="Brand" onclick={handleForLoginCredientialTab} class="slds-m-left_x-small"></lightning-button>
+
+                </template>
+                <template if:true={loginCredientials}>
+                    <h1>Login Credientials:</h1>
+                        <lightning-input type="Email" label="User Name" onchange={handleOnUserName} placeholder="Enter User Name" required="true"></lightning-input>
+                        <lightning-icon icon-name="utility:hide" alternative-text="Hide" title="hide icon with error variant"
+                            variant="error">
+                        </lightning-icon>
+                        <lightning-input  label="Password" onchange={handleOnPassword} placeholder="Enter Password" required="true"></lightning-input><br>
+                        <lightning-button variant="Brand" label="Previous" onclick={handleForContactInformationTab} class="slds-m-left_x-small"></lightning-button>
+                        <lightning-button variant="Brand" label="Save" title="Save" onclick={handleOnSave} class="slds-m-left_x-small"></lightning-button>
+                </template>
+                <lightning-button variant="Brand" label="Existing User" onclick={handleOnExistingUser} class="slds-m-left_x-small"></lightning-button>
+            </template>
+            <template if:true={planMyJourney}>
+                <lightning-tabset>
+                    <lightning-tab label="Plan My Journey">
+                            <lightning-input label="From Station" onchange={hanleOnFromStation} placeholder="Enter your Starting Point"></lightning-input>
+                            <lightning-input label="To Station" onchange={handleOnToStation} placeholder="Enter Your Ending Point"></lightning-input>
+                            <lightning-input label="Journey Date" type="Date" name="input" onchange={handleOnDate} placeholder="Enter Journey Date"></lightning-input>
+                            <lightning-button label="Book" variant="brand-outline" onclick={handleOnSubmit}></lightning-button>
+                            <lightning-button label="Reset" variant="brand-outline" onclick={hanleOnReset}></lightning-button>
+                    </lightning-tab>
+                </lightning-tabset>
+            </template>
+            <template if:true={planMyJourney1}>
+                <lightning-datatable
+                key-field="id"
+                data={source}
+                columns = {fromcolumns}
+                >
+                </lightning-datatable>
+            </template>
+            <template if:false={planMyJourney1}>
+                <lightning-datatable
+                key-field="id"
+                data={destination}
+                columns = {tocolumns}
+                >
+                </lightning-datatable>
+            </template>
+            <template if:true={showValidation}>
+                <div id="message" class="slds-box slds-theme_shade slds-theme_alert-texture">
+                    <h3>Password must contain the following:</h3>
+                    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                    <p id="number" class="invalid">A <b>number</b></p>
+                    <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                </div>
+            </template>
+    </lightning-card>
+</template>

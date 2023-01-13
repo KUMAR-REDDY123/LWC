@@ -1,0 +1,49 @@
+/*.icon-left .slds-input{
+    padding-left:var{--lwc-varSpacingLarge, 1.5rem};
+}
+.icon-right .slds-input{
+    padding-right:var{--lwc-varSpacingLarge, 1.5rem};
+}*/
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid 
+{
+    color: green;
+  }
+  
+  .valid:before 
+  {
+    position: relative;
+    left: -5px;
+    content: "/";
+  }
+  
+  /* Add a red text color and an "x" icon when the requirements are wrong */
+  .invalid
+   {
+    color: red;
+  }
+  
+  .invalid:before 
+  {
+    position: relative;
+    left: -5px;
+    content: "X";
+  }
+  
+  .message
+   {
+    display:none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+  }
+  
+  .message p 
+  {
+    padding: 10px 35px;
+    font-size: 18px;
+  }
+
